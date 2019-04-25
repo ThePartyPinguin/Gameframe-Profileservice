@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  gameframe-profileservice:
+    build: .
+    container_name: gameframe-profileservice
+    ports:
+      - "8050:8050"
+    expose:
+      - "8050/tcp"
+#    networks:
+#      - default
+#      - gameframe-internal-network
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    restart: always
+
