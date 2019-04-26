@@ -22,15 +22,7 @@ FROM openjdk:8-jre-alpine
 # Set the working directory.
 WORKDIR /app
 
-# Copy the JAR into the image.
-<<<<<<< HEAD
-COPY --from=maven /app/target/gameframe-eurekaservice.jar ./
-
-# Run the application.
-CMD ["java", "-jar", "gameframe-eurekaservice.jar"]
-=======
 COPY --from=maven /app/target/gameframe-profileservice.jar ./
 
 # Run the application.
 CMD ["java", "-jar", "gameframe-profileservice.jar"]
->>>>>>> e089e51cd08afd02f6c95a04299ded9e890544d7
