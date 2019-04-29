@@ -28,6 +28,10 @@ public class UserProfile {
     public UserProfile() {
     }
 
+    public UserProfile(long userId) {
+        this.userId = userId;
+    }
+
     public long getUserId() {
         return userId;
     }
