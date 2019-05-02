@@ -11,7 +11,7 @@ public class UserProfile {
 
     @Id
     @Column(name = "USER_ID", nullable = false)
-    private long userId;
+    public long userId;
 
     @Column(name = "USER_WEBSITE")
     private String website;

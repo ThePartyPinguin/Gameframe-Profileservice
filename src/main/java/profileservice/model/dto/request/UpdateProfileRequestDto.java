@@ -5,8 +5,8 @@ import profileservice.model.entity.UserProfile;
 
 public class UpdateProfileRequestDto {
 
-    private UserDto user;
     private UserProfile profile;
+    private UserDto user;
 
     public UpdateProfileRequestDto() {
     }
