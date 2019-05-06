@@ -12,7 +12,6 @@ import profileservice.model.dto.response.user.UserUpdatedResponse;
 import profileservice.model.entity.UserProfile;
 import profileservice.repository.IProfileDao;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @Service
@@ -55,7 +54,7 @@ public class UserProfileService {
 
     public FullUserProfileResponse getProfile(long userId){
 
-        FullUserResponse userResponse = this.userService.getUser(userId);
+        FullUserResponse userResponse = this.userService.getUserById(userId);
 
         if(userResponse.getResponseCode() == 501)
             return new FullUserProfileResponse(userResponse.getResponseCode(), userResponse.getResponseMessage());
@@ -75,6 +74,25 @@ public class UserProfileService {
         }
 
         return new FullUserProfileResponse(200, "User profile found", userResponse.getUserData(), userProfile);
+    }
+
+    public FullUserProfileResponse getPublicProfile(String username){
+
+        FullUserResponse user = this.userService.getUserByUsername(username);
+
+        if(user.getResponseCode() != 200){
+            return new FullUserProfileResponse(404, "User does not exist");
+        }
+
+        Optional<UserProfile> userProfileData = this.profileDao.findById(user.getUserData().getUserId());
+
+        if(!userProfileData.isPresent()){
+            return new FullUserProfileResponse(404, "User has no profile setup yet");
+        }
+
+        UserDto userDto = user.getUserData();
+
+        return new FullUserProfileResponse(500, "Profile found", userDto, userProfileData.get());
     }
 
 

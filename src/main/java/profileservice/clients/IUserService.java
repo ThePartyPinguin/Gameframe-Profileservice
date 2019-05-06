@@ -16,6 +16,9 @@ public interface IUserService {
     UserUpdatedResponse updateUserData(@RequestBody UserDto userDto);
 
     @RequestMapping(value = "/internal/getuser/{userId}", method = RequestMethod.GET)
-    FullUserResponse getUser(@PathVariable long userId);
+    FullUserResponse getUserById(@PathVariable long userId);
+
+    @RequestMapping(value = "/internal/getUserByUsername/{userName}", method = RequestMethod.GET)
+    FullUserResponse getUserByUsername(@PathVariable String userName);
 
 }

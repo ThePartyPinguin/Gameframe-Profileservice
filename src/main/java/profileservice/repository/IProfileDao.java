@@ -12,5 +12,4 @@ public interface IProfileDao {
 
     boolean existsById(long userId);
 
-
 }
