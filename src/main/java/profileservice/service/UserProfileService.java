@@ -2,6 +2,7 @@ package profileservice.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import profileservice.clients.IFileService;
 import profileservice.clients.IUserService;
 import profileservice.model.dto.UserDto;
 import profileservice.model.dto.request.UpdateProfileRequestDto;
@@ -22,6 +23,9 @@ public class UserProfileService {
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private IFileService fileService;
 
     public UpdateProfileResponse updateProfile(UpdateProfileRequestDto requestDto){
 
@@ -61,6 +65,7 @@ public class UserProfileService {
 
         Optional<UserProfile> profileData = this.profileDao.findById(userId);
 
+
         UserProfile userProfile = null;
 
         if(!profileData.isPresent()){
@@ -71,6 +76,11 @@ public class UserProfileService {
         }
         else{
             userProfile = profileData.get();
+        }
+
+        String profilePictureDownloadUrl = this.fileService.getUserProfilePictureUrl(userId + "");
+        if(profilePictureDownloadUrl != null){
+            userProfile.setProfilePicture(profilePictureDownloadUrl);
         }
 
         return new FullUserProfileResponse(200, "User profile found", userResponse.getUserData(), userProfile);
