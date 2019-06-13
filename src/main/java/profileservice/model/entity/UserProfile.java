@@ -1,9 +1,6 @@
 package profileservice.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "USER_PROFILE")
@@ -22,7 +19,7 @@ public class UserProfile {
     @Column(name = "USER_BIO")
     private String bio;
 
-    @Column(name = "USER_PROFILE_PICTURE")
+    @Transient
     private String profilePicture;
 
     public UserProfile() {
