@@ -1,5 +1,6 @@
 package profileservice.service;
 
+import com.netflix.client.ClientException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import profileservice.clients.IFileService;
@@ -78,10 +79,16 @@ public class UserProfileService {
             userProfile = profileData.get();
         }
 
-        String profilePictureDownloadUrl = this.fileService.getUserProfilePictureUrl(userId + "");
-        if(profilePictureDownloadUrl != null){
-            userProfile.setProfilePicture(profilePictureDownloadUrl);
+        try{
+            String profilePictureDownloadUrl = this.fileService.getUserProfilePictureUrl(userId + "");
+            if(profilePictureDownloadUrl != null){
+                userProfile.setProfilePicture(profilePictureDownloadUrl);
+            }
         }
+        catch (Exception ex){
+            userProfile.setProfilePicture("");
+        }
+
 
         return new FullUserProfileResponse(200, "User profile found", userResponse.getUserData(), userProfile);
     }
